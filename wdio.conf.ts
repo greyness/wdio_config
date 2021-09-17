@@ -20,9 +20,7 @@ export const config: WebdriverIO.Config = {
     // then the current working directory is where your `package.json` resides, so `wdio`
     // will be called from there.
     //
-    specs: [
-        './specs/**/*.ts'
-    ],
+    specs: ['./specs/**/*.ts'],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -49,20 +47,21 @@ export const config: WebdriverIO.Config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: [{
-    
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-        maxInstances: 5,
-        //
-        browserName: 'chrome',
-        acceptInsecureCerts: true
-        // If outputDir is provided WebdriverIO can capture driver session logs
-        // it is possible to configure which logTypes to include/exclude.
-        // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-        // excludeDriverLogs: ['bugreport', 'server'],
-    }],
+    capabilities: [
+        {
+            // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+            // grid with only 5 firefox instances available you can make sure that not more than
+            // 5 instances get started at a time.
+            maxInstances: 5,
+            //
+            browserName: 'chrome',
+            acceptInsecureCerts: true,
+            // If outputDir is provided WebdriverIO can capture driver session logs
+            // it is possible to configure which logTypes to include/exclude.
+            // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
+            // excludeDriverLogs: ['bugreport', 'server'],
+        },
+    ],
     //
     // ===================
     // Test Configurations
@@ -111,7 +110,7 @@ export const config: WebdriverIO.Config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: ['chromedriver'],
-    
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -134,14 +133,13 @@ export const config: WebdriverIO.Config = {
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec'],
 
-
-    
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 60000,
+        reporter: 'mochawesome'
     },
     //
     // =====
@@ -185,8 +183,9 @@ export const config: WebdriverIO.Config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+        require('expect-webdriverio').setOptions({ wait: 3000, interval:100 })
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name
@@ -222,7 +221,6 @@ export const config: WebdriverIO.Config = {
      */
     // afterTest: function(test, context, { error, result, duration, passed, retries }) {
     // },
-
 
     /**
      * Hook that gets executed after the suite has ended
@@ -267,10 +265,10 @@ export const config: WebdriverIO.Config = {
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
     /**
-    * Gets executed when a refresh happens.
-    * @param {String} oldSessionId session ID of the old session
-    * @param {String} newSessionId session ID of the new session
-    */
+     * Gets executed when a refresh happens.
+     * @param {String} oldSessionId session ID of the old session
+     * @param {String} newSessionId session ID of the new session
+     */
     //onReload: function(oldSessionId, newSessionId) {
     //}
 }
