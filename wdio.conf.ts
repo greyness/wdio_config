@@ -270,4 +270,4 @@ export const config: WebdriverIO.Config = {
      */
     //onReload: function(oldSessionId, newSessionId) {
     //}
-}
+};

@@ -3,7 +3,7 @@
         "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
         "pretty": "npx prettier --write .",
         "prepare": "husky install",
-        "generate-report":"marge"
+        "generate-report": "marge"
     },
     "dependencies": {},
     "devDependencies": {
